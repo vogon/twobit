@@ -1,2 +1,5 @@
-db/*
-packages/*
+db
+packages
+*/bin
+*/obj
+*.suo
