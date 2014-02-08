@@ -13,6 +13,43 @@ namespace LoadBlockGraph
     {
         static GraphClient neo4j;
 
+        private class Address
+        {
+            public String Address { get; set; }
+        }
+
+        private class Transaction
+        {
+            public String Hash { get; set; }
+            public DateTime Time { get; set; }
+        }
+
+        private class Put
+        {
+            public Address Address { get; set; }
+            public Transaction Transaction { get; set; }
+            public long Value { get; set; }
+        }
+
+        private class Input : Put { }
+        private class Output : Put { }
+
+        private class Subgraph
+        {
+            public Subgraph()
+            {
+                AddressNodes = new HashSet<Address>();
+                TxnNodes = new List<Transaction>();
+                InputEdges = new List<Input>();
+                OutputEdges = new List<Output>();
+            }
+
+            public HashSet<Address> AddressNodes { get; set; }
+            public List<Transaction> TxnNodes { get; set; }
+            public List<Input> InputEdges { get; set; }
+            public List<Output> OutputEdges { get; set; }
+        }
+
         static async Task<string> FetchBlockJson(string blockId)
         {
             HttpClient client = new HttpClient();
